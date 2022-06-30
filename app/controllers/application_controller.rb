@@ -1,3 +1,5 @@
+require "pry"
+
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
@@ -12,6 +14,10 @@ class ApplicationController < Sinatra::Base
     sellers.to_json(include: :items)
   end
 
+ get "/items/sellers/:id" do  
+    item = Item.where (["seller_id= '%s'" , params[:id]])
+    item.to_json
+  end
 
   get "/sellers/:id" do
     sellers = Seller.all.find(params[:id])
@@ -48,24 +54,44 @@ class ApplicationController < Sinatra::Base
     seller.to_json
   end
 
+
+
+
+  # AD ROUTES
+  post "/items" do
+    items = Item.create(
+      category: params[:category],
+      image_url: params[:image],
+      condition: params[:condition],
+      price: params[:params],
+      details: params[:details]  ,
+      description: params[:description]   
+    )
+    items.to_json
+  end
+
+ 
+
    # BUYER ROUTES
   get "/items" do   
     items = Item.all
     items.to_json(include: :seller)
   end
-  # # TODO - filter
-  # get "/items/:category" do
-  #   # items = Item.select {|key,value| category: params[:category]}
-  #   itemkeys = Item.select do |k,v|
-  #     k == {params[:category]} 
+ 
+  # get "/items/:category" do  
+  #   item = Item.all.select do |singleItem|
+  #     singleItem.category == params[:category]
   #   end
-
-  #   arr = itemskeys.values
-  #   arr.to_json
+  #   item.to_json
   # end
 
-  get "/items/:id" do
-    items = Item.all.find(params[:id])
-    items.to_json(include: :seller)
+  get "/items/:category" do  
+    item = Item.where (["category= '%s'" , params[:category]])
+    item.to_json
   end
+
+
+  
+  
+ 
 end
