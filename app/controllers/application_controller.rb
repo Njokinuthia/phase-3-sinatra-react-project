@@ -24,6 +24,11 @@ class ApplicationController < Sinatra::Base
     sellers.to_json(include: :items)
   end
 
+  get "/sellers/:email/:password" do
+    seller = Seller.where (["email='%s' and password= '%s'", params[:email], params[:password]])
+    seller.to_json(include: :items)
+  end
+
   # create a seller
   post "/sellers" do
     seller = Seller.create(
@@ -87,7 +92,7 @@ class ApplicationController < Sinatra::Base
 
   get "/items/:category" do  
     item = Item.where (["category= '%s'" , params[:category]])
-    item.to_json
+    item.to_json(include: :seller)
   end
 
 

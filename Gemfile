@@ -34,6 +34,8 @@ gem "sqlite3", "~> 1.4"
 # Require all files in a folder
 gem "require_all", "~> 3.0"
 
+# gem "pg" 
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem "faker", "~> 2.18"
@@ -43,6 +45,9 @@ group :development do
   # https://github.com/alexch/rerun
   gem "rerun"
 end
+
+
+
 
 # These gems will only be used when we are running tests
 group :test do
