@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
 
  get "/items/sellers/:id" do  
     item = Item.where (["seller_id= '%s'" , params[:id]])
-    item.to_json
+    item.to_json(include: :seller)
   end
 
   get "/sellers/:id" do
@@ -46,6 +46,13 @@ class ApplicationController < Sinatra::Base
     seller.to_json
   end
 
+  # seller deletes item
+  delete "/items/seller/:item" do
+    item = Item.where (["item='%s'", params[:item_id]])    
+    item.destroy
+    item.to_json
+  end
+
   # update a seller
   patch "/sellers/:id" do
     seller = Seller.all.find(params[:id])
@@ -57,8 +64,6 @@ class ApplicationController < Sinatra::Base
     )
     seller.to_json
   end
-
-
 
 
   # AD ROUTES
