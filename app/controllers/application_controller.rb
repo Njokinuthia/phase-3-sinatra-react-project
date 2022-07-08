@@ -68,7 +68,7 @@ class ApplicationController < Sinatra::Base
       condition: params[:condition],
       price: params[:params],
       details: params[:details],
-      description: params[:description]   
+      # description: params[:description]   
     )
     item.to_json
   end  
