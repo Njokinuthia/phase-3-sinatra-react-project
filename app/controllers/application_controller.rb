@@ -60,17 +60,17 @@ class ApplicationController < Sinatra::Base
     seller.to_json
   end
 
-  # create an item / post an add
+  # create an item / post an add - not working
   post "/items" do
-    items = Item.create(
+    item = Item.create(
       category: params[:category],
       image_url: params[:image],
       condition: params[:condition],
       price: params[:params],
-      details: params[:details]  ,
+      details: params[:details],
       description: params[:description]   
     )
-    items.to_json
+    item.to_json
   end  
 
 
